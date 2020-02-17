@@ -6,11 +6,12 @@ const callog = () => {
 };
 
 const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-type": "text/plain" });
   //req => request
   //res => response
   switch (req.url) {
     case '/pets':
-      res.end('Aqui lista os pets');
+      res.end('Aqui lista os pets de nossa aplicação');
       break;
     default:
       break;
