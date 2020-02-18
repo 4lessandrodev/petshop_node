@@ -1,4 +1,6 @@
 const http = require('http');
+const url = require('url');
+const petshop = require('./petshop');
 const port = 3000;
 const hostname = 'localhost';
 const callog = () => {
@@ -6,26 +8,36 @@ const callog = () => {
 };
 
 const server = http.createServer((req, res) => {
+  //Executa apenas quando é requisitado pelo navegador
   res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+  let urlCompleta = url.parse(req.url, true);
+  let rota = urlCompleta.pathname;
+  let query = urlCompleta.query;
+  console.log(query);
 
   //req => request, res => response
-  switch (req.url) {
+  switch (rota) {
     case '/pets':
-      res.write('Aqui lista os pets de nossa aplicação');
+      res.write(petshop.listarPets());
       break;
     case '/pets/add':
-      res.write('Adicionar um pet');
+      //Metodo = http://localhost:3000/pets/add?nome=Lua&&tipo=gato&&raca=Siames&&idade=2&&genero=F&&vacinado=false
+      petshop.novoPet(query);
+      res.write(petshop.listarPets());
       break;
     case '/pets/buscar':
-      res.write('Buscar pet');
+      //Metodo = http://localhost:3000/pets/buscar?nome=Lua
+      let pet = petshop.buscarPet(query);
+      res.write(pet);
       break;
     default:
-      res.write('404 - Rota não encontrada');
+      //res.write('404 - Rota não encontrada');
+      //Todos os caminhos 404 levam a pagina listar pets
+      res.write(petshop.listarPets());
       break;
   }
 
   //Encerrar a request 
   res.end();
 
-  res.end('Olá mundo');
 }).listen(port, hostname, callog());
