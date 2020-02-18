@@ -73,7 +73,6 @@ const novoPet = (petParam) => {
 
 //Função buscar pet
 const buscarPet = (petParam) => {
-  console.log('Nome recebido: ' + petParam.nome);
   if (verificarParametro(petParam)) {
     let petEncontrado = pets.find(pet => pet.nome == petParam.nome);
     petEncontrado = `${petEncontrado.nome} | ${petEncontrado.tipo} | ${petEncontrado.idade} anos | ${petEncontrado.genero}`;
@@ -83,7 +82,7 @@ const buscarPet = (petParam) => {
   }
 };
 
-//Verificar se os parametros foram passados
+//Verificar se os parametros foram informado
 const verificarParametro = (petParam) => {
   return (petParam.nome != undefined && petParam != null && petParam.nome != '');
 };

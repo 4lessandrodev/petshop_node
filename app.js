@@ -13,7 +13,6 @@ const server = http.createServer((req, res) => {
   let urlCompleta = url.parse(req.url, true);
   let rota = urlCompleta.pathname;
   let query = urlCompleta.query;
-  console.log(query);
 
   //req => request, res => response
   switch (rota) {
