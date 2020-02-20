@@ -87,4 +87,42 @@ const verificarParametro = (petParam) => {
   return (petParam.nome != undefined && petParam != null && petParam.nome != '');
 };
 
-module.exports = { listarPets, novoPet, buscarPet };
+//Função realizar pagamento 
+const pagar = () => {
+  return 'Pagamento realizado com sucesso!';
+};
+
+//Atender o pet 
+const atenderPet = (petId) => {
+  let pet = pets[petId];
+  if (pet) {
+    if (pet.servicos != '' || pet.servicos != []) {
+      return `Serviços realizados: ${pet.servicos.toString()} em ${pet.nome}`;
+    } else {
+      return `Não existem serviços a serem realizados para ${pet.nome}`;
+    }
+  } else {
+    return `Não existe pet com o id informado: ${petId}`;
+  }
+};
+
+const realizarServico = (servico) => {
+
+};
+
+//Contar quantos pet foram vacinados
+const contarVacinados = () => {
+  let vacinados = pets.filter(pet => pet.vacinado).length;
+  let naoVacinados = pets.filter(pet => !pet.vacinado).length;
+
+  return (`
+  ------------------------
+  Temos ${vacinados} pets vacinados.
+  Temos ${naoVacinados} pets NÃO vacinados.
+  ------------------------
+  `);
+};
+
+//
+
+module.exports = { listarPets, novoPet, buscarPet, pagar, contarVacinados, atenderPet };
